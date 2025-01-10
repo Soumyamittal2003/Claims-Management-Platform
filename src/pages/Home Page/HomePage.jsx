@@ -19,13 +19,13 @@ const HomePage = () => {
           </p>
           <div className="flex justify-center space-x-4">
             <Link
-              to="/signup"
+              to="/get-started"
               className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
             >
               Get Started
             </Link>
             <Link
-              to="/login"
+              to="/learn-more"
               className="bg-gray-200 text-gray-700 py-2 px-4 rounded hover:bg-gray-300"
             >
               Learn More

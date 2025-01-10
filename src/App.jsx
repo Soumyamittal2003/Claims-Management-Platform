@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,12 +16,13 @@ import Error404 from "./pages/AuthPages/Error404";
 
 // Components
 import Header from "./components/Header";
+import Footer from "./components/Footer"; // Import Footer component
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="font-sans max-h-screen">
+        <div className="font-sans flex flex-col min-h-screen">
           <Header />
           <ToastContainer
             position="top-right"
@@ -34,36 +35,36 @@ function App() {
             draggable
             pauseOnHover
           />
-          <Routes>
-            {/* Public Routes */}
-            <Route
-              path="/"
-              element={<HomePage />}
-            />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
+          <main className="flex-1">
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
 
-            {/* Private Routes */}
-            <Route
-              path="/patient-dashboard/*"
-              element={
-                <PrivateRoute>
-                  <Patient />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/insurer-dashboard/*"
-              element={
-                <PrivateRoute>
-                  <Insurer />
-                </PrivateRoute>
-              }
-            />
+              {/* Private Routes */}
+              <Route
+                path="/patient-dashboard/*"
+                element={
+                  <PrivateRoute>
+                    <Patient />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/insurer-dashboard/*"
+                element={
+                  <PrivateRoute>
+                    <Insurer />
+                  </PrivateRoute>
+                }
+              />
 
-            {/* Fallback Route */}
-            <Route path="*" element={<Error404 />} />
-          </Routes>
+              {/* Fallback Route */}
+              <Route path="*" element={<Error404 />} />
+            </Routes>
+          </main>
+          <Footer /> {/* Add Footer component */}
         </div>
       </BrowserRouter>
     </AuthProvider>
