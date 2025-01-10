@@ -40,7 +40,7 @@ const SubmitClaim = ({ onClose }) => {
         formDataToSend.append("uploadedDocument", formData.uploadedDocument);
       }
 
-      const response = await fetch("http://localhost:5000/claims/new-create", {
+      const response = await fetch("https://claims-management-platform-backend.onrender.com/claims/new-create", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

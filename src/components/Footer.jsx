@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto text-center">
         <p>&copy; {new Date().getFullYear()} Claim Management Portal</p>
         <p className="text-sm text-gray-400 mt-2">
-          Built by soumya using React and Tailwind css
+          Built by soumya
         </p>
       </div>
     </footer>

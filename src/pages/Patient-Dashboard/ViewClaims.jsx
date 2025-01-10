@@ -9,7 +9,7 @@ const ViewClaims = ({ onKnowMore }) => {
     const fetchClaims = async () => {
       try {
         const token = Cookies.get("token");
-        const response = await fetch("http://localhost:5000/claims/myclaims", {
+        const response = await fetch("https://claims-management-platform-backend.onrender.com/claims/myclaims", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

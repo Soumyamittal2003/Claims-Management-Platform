@@ -9,7 +9,7 @@ const ClaimDetails = ({ claimId, onClose }) => {
     const fetchClaimDetails = async () => {
       try {
         const token = Cookies.get("token");
-        const response = await fetch(`http://localhost:5000/claims/${claimId}`, {
+        const response = await fetch(`https://claims-management-platform-backend.onrender.com/claims/${claimId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -59,7 +59,7 @@ const ClaimDetails = ({ claimId, onClose }) => {
         <p>
           <strong>Uploaded Document:</strong>{" "}
           <a
-            href={`http://localhost:5000/${claim.uploadedDocument}`}
+            href={`https://claims-management-platform-backend.onrender.com/${claim.uploadedDocument}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:underline"

@@ -18,7 +18,7 @@ const Insurer = () => {
       try {
         const token = Cookies.get("token");
         const response = await fetch(
-          "http://localhost:5000/claims/all-claims",
+          "https://claims-management-platform-backend.onrender.com/claims/all-claims",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ const Insurer = () => {
         const claimsWithPatientDetails = await Promise.all(
           data.map(async (claim) => {
             const patientResponse = await fetch(
-              `http://localhost:5000/users/${claim.createdBy}`,
+              `https://claims-management-platform-backend.onrender.com/users/${claim.createdBy}`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -92,7 +92,7 @@ const Insurer = () => {
     try {
       const token = Cookies.get("token");
       const response = await fetch(
-        `http://localhost:5000/claims/update/${selectedClaim._id}`,
+        `https://claims-management-platform-backend.onrender.com/claims/update/${selectedClaim._id}`,
         {
           method: "PUT",
           headers: {
@@ -237,7 +237,7 @@ const Insurer = () => {
                 <p>
                   <strong>Document:</strong>{" "}
                   <a
-                    href={`http://localhost:5000/${selectedClaim.uploadedDocument}`}
+                    href={`https://claims-management-platform-backend.onrender.com/${selectedClaim.uploadedDocument}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 underline"
