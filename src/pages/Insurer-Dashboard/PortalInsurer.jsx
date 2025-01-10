@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 const Insurer = () => {
-  const [claims, setClaims] = useState([]); // All claims
-  const [filteredClaims, setFilteredClaims] = useState([]); // Filtered claims
-  const [selectedClaim, setSelectedClaim] = useState(null); // Selected claim for review
-  const [filter, setFilter] = useState({ status: "", minAmount: "", maxAmount: "" });
+  const [claims, setClaims] = useState([]);
+  const [filteredClaims, setFilteredClaims] = useState([]);
+  const [selectedClaim, setSelectedClaim] = useState(null);
+  const [filter, setFilter] = useState({
+    status: "",
+    minAmount: "",
+    maxAmount: "",
+  });
   const [error, setError] = useState("");
 
   // Fetch all claims when the component mounts
@@ -13,11 +17,14 @@ const Insurer = () => {
     const fetchClaims = async () => {
       try {
         const token = Cookies.get("token");
-        const response = await fetch("http://localhost:5000/claims/all-claims", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://localhost:5000/claims/all-claims",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch claims.");
@@ -36,7 +43,7 @@ const Insurer = () => {
             );
 
             if (!patientResponse.ok) {
-              return { ...claim, patientDetails: null }; // Handle missing patient details
+              return { ...claim, patientDetails: null };
             }
 
             const patientData = await patientResponse.json();
@@ -45,7 +52,7 @@ const Insurer = () => {
         );
 
         setClaims(claimsWithPatientDetails);
-        setFilteredClaims(claimsWithPatientDetails); // Initialize filtered claims
+        setFilteredClaims(claimsWithPatientDetails);
       } catch (err) {
         setError(err.message);
       }
@@ -54,23 +61,27 @@ const Insurer = () => {
     fetchClaims();
   }, []);
 
-  // Filter claims based on current filter values
   const applyFilters = (filters) => {
     const filtered = claims.filter((claim) => {
-      const matchesStatus = filters.status ? claim.status === filters.status : true;
-      const matchesMinAmount = filters.minAmount ? claim.claimAmount >= Number(filters.minAmount) : true;
-      const matchesMaxAmount = filters.maxAmount ? claim.claimAmount <= Number(filters.maxAmount) : true;
+      const matchesStatus = filters.status
+        ? claim.status === filters.status
+        : true;
+      const matchesMinAmount = filters.minAmount
+        ? claim.claimAmount >= Number(filters.minAmount)
+        : true;
+      const matchesMaxAmount = filters.maxAmount
+        ? claim.claimAmount <= Number(filters.maxAmount)
+        : true;
       return matchesStatus && matchesMinAmount && matchesMaxAmount;
     });
     setFilteredClaims(filtered);
   };
 
-  // Handle changes in the filter inputs
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     const updatedFilter = { ...filter, [name]: value };
-    setFilter(updatedFilter); // Update filter state
-    applyFilters(updatedFilter); // Apply filters immediately
+    setFilter(updatedFilter);
+    applyFilters(updatedFilter);
   };
 
   const handleManageClaim = (claim) => {
@@ -80,14 +91,17 @@ const Insurer = () => {
   const handleUpdateClaim = async (updatedClaim) => {
     try {
       const token = Cookies.get("token");
-      const response = await fetch(`http://localhost:5000/claims/update/${selectedClaim._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(updatedClaim),
-      });
+      const response = await fetch(
+        `http://localhost:5000/claims/update/${selectedClaim._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updatedClaim),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to update claim.");
@@ -96,15 +110,19 @@ const Insurer = () => {
       const updatedClaimData = await response.json();
       setClaims((prev) =>
         prev.map((claim) =>
-          claim._id === updatedClaimData.claim._id ? updatedClaimData.claim : claim
+          claim._id === updatedClaimData.claim._id
+            ? updatedClaimData.claim
+            : claim
         )
       );
       setFilteredClaims((prev) =>
         prev.map((claim) =>
-          claim._id === updatedClaimData.claim._id ? updatedClaimData.claim : claim
+          claim._id === updatedClaimData.claim._id
+            ? updatedClaimData.claim
+            : claim
         )
       );
-      setSelectedClaim(null); // Close the popup
+      setSelectedClaim(null);
     } catch (err) {
       setError(err.message);
     }
@@ -169,7 +187,9 @@ const Insurer = () => {
                 <tr key={claim._id}>
                   <td className="border px-4 py-2">{claim.policyName}</td>
                   <td className="border px-4 py-2">{claim.claimAmount}</td>
-                  <td className="border px-4 py-2">{claim.patientDetails?.name || "N/A"}</td>
+                  <td className="border px-4 py-2">
+                    {claim.patientDetails?.name || "N/A"}
+                  </td>
                   <td className="border px-4 py-2">
                     {new Date(claim.submissionDate).toLocaleDateString()}
                   </td>
@@ -199,10 +219,20 @@ const Insurer = () => {
                 &times;
               </button>
               <h2 className="text-xl font-bold mb-4">Manage Claim</h2>
-              <p><strong>Policy:</strong> {selectedClaim.policyName}</p>
-              <p><strong>Description:</strong> {selectedClaim.description}</p>
-              <p><strong>Patient:</strong> {selectedClaim.patientDetails?.name || "N/A"}</p>
-              <p><strong>Submission Date:</strong> {new Date(selectedClaim.submissionDate).toLocaleDateString()}</p>
+              <p>
+                <strong>Policy:</strong> {selectedClaim.policyName}
+              </p>
+              <p>
+                <strong>Description:</strong> {selectedClaim.description}
+              </p>
+              <p>
+                <strong>Patient:</strong>{" "}
+                {selectedClaim.patientDetails?.name || "N/A"}
+              </p>
+              <p>
+                <strong>Submission Date:</strong>{" "}
+                {new Date(selectedClaim.submissionDate).toLocaleDateString()}
+              </p>
               {selectedClaim.uploadedDocument && (
                 <p>
                   <strong>Document:</strong>{" "}

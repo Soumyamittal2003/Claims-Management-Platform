@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import SubmitClaim from "./SubmitClaim";
-import ClaimDetails from "./ClaimDetails"; // New component for showing claim details
+import ClaimDetails from "./ClaimDetails"; 
 import ViewClaims from "./ViewClaims";
 
 const Patient = () => {
-  const [showSubmitPopup, setShowSubmitPopup] = useState(false); // Control for Submit Claim popup
-  const [showDetailsPopup, setShowDetailsPopup] = useState(false); // Control for Claim Details popup
-  const [selectedClaim, setSelectedClaim] = useState(null); // For storing the selected claim details
+  const [showSubmitPopup, setShowSubmitPopup] = useState(false); 
+  const [showDetailsPopup, setShowDetailsPopup] = useState(false); 
+  const [selectedClaim, setSelectedClaim] = useState(null); 
 
   const handleOpenSubmitPopup = () => setShowSubmitPopup(true);
   const handleCloseSubmitPopup = () => setShowSubmitPopup(false);

@@ -37,4 +37,4 @@ This is the frontend application for the Claims Management Platform. It provides
 git clone https://github.com/username/frontend-repo.git
 cd frontend-repo
 npm install
-npm start
+npm run dev

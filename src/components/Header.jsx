@@ -9,7 +9,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/"); // Redirect to home page after logout
+    navigate("/");
   };
 
   const isDashboardRoute = location.pathname.includes("dashboard");

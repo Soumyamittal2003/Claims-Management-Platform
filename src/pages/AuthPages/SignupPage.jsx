@@ -6,7 +6,7 @@ const SignupPage = () => {
     name: "",
     email: "",
     password: "",
-    role: "patient", // Default role is patient
+    role: "patient", 
     phone: "",
     address: "",
   });

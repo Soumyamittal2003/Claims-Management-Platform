@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import AuthProvider from "./utils/AuthContext"; // Import AuthProvider
+import AuthProvider from "./utils/AuthContext"; 
 import PrivateRoute from "./utils/PrivateRoute";
 
 // Pages
@@ -16,7 +16,7 @@ import Error404 from "./pages/AuthPages/Error404";
 
 // Components
 import Header from "./components/Header";
-import Footer from "./components/Footer"; // Import Footer component
+import Footer from "./components/Footer"; 
 
 function App() {
   return (
@@ -64,7 +64,7 @@ function App() {
               <Route path="*" element={<Error404 />} />
             </Routes>
           </main>
-          <Footer /> {/* Add Footer component */}
+          <Footer /> 
         </div>
       </BrowserRouter>
     </AuthProvider>

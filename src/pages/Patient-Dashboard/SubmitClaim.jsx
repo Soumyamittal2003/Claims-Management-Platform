@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Cookies from "js-cookie"; // Import js-cookie to access cookies
+import Cookies from "js-cookie"; 
 
 const SubmitClaim = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -27,7 +27,7 @@ const SubmitClaim = ({ onClose }) => {
     setLoading(true);
 
     try {
-      const token = Cookies.get("token"); // Retrieve token from cookies
+      const token = Cookies.get("token"); 
       if (!token) {
         throw new Error("Authentication token is missing. Please log in again.");
       }
@@ -54,7 +54,7 @@ const SubmitClaim = ({ onClose }) => {
       }
 
       setSuccess("Claim submitted successfully!");
-      // Reset form data
+      
       setFormData({
         policyName: "",
         claimAmount: "",
@@ -62,7 +62,7 @@ const SubmitClaim = ({ onClose }) => {
         uploadedDocument: null,
       });
 
-      // Refresh the page after successful submission
+      
       window.location.reload();
     } catch (error) {
       setError(error.message);

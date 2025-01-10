@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    login(); // Initialize state from cookies when the app loads
+    login(); 
   }, []);
 
   return (
