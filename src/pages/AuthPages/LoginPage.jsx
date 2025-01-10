@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../utils/AuthContext";
 import Cookies from "js-cookie";
 
 const LoginPage = () => {
@@ -8,7 +9,8 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // Hook to handle navigation
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,17 +33,12 @@ const LoginPage = () => {
 
       const data = await response.json();
 
-      // Store token and role in cookies
-      Cookies.set("token", data.token, { expires: 7 }); // Expires in 7 days
+      Cookies.set("token", data.token, { expires: 7 });
       Cookies.set("role", data.user.role, { expires: 7 });
       Cookies.set("userId", data.user._id, { expires: 7 });
 
-      // Redirect user based on their role
-      if (data.user.role === "patient") {
-        navigate("/patient-dashboard");
-      } else if (data.user.role === "insurer") {
-        navigate("/insurer-dashboard");
-      }
+      login(); // Update context state
+      navigate(data.user.role === "patient" ? "/patient-dashboard" : "/insurer-dashboard");
     } catch (err) {
       setError(err.message);
     } finally {
