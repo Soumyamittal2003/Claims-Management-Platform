@@ -61,8 +61,9 @@ const SubmitClaim = ({ onClose }) => {
         description: "",
         uploadedDocument: null,
       });
-      // Close popup after successful submission
-      if (onClose) onClose();
+
+      // Refresh the page after successful submission
+      window.location.reload();
     } catch (error) {
       setError(error.message);
     } finally {
